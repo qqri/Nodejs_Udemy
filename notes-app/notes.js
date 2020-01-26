@@ -1,15 +1,19 @@
 const fs = require('fs')
-const getNotes = function(){
-    return 'Your notes...'
-}
 const chalk = require('chalk')
 
-const addNote = function(title, body){
+const getNotes = () => {
+    return 'Your notes...'
+}
+
+
+const addNote = (title, body) => {
     const notes = loadNotes()
     //title 중복일 경우 
-    const duplicateNotes = notes.filter(function(note){
-        return note.title === title 
-    })
+    // const duplicateNotes = notes.filter(function(note){
+    //     return note.title === title 
+    // })
+    const duplicateNotes = notes.filter((note) => note.title === title)
+    
 
     if (duplicateNotes.length === 0 ){
         //empty일 경우 생성
@@ -28,11 +32,13 @@ const addNote = function(title, body){
     
 }
 
-const removeNote = function(title){
+const removeNote = (title) => {
     const notes = loadNotes()
-    const notesTokeep = notes.filter(function(note){
-        return note.title !== title //note title 일치하는 note가 존재 안하는 경우
-    })
+    // const notesTokeep = notes.filter(function(note){
+    //     return note.title !== title //note title 일치하는 note가 존재 안하는 경우
+    // })
+    const notesTokeep = notes.filter((note) => note.title !== title)
+    
     if(notes.length > notesTokeep.length){
         console.log(chalk.green.inverse('Note removed!'))
         saveNotes(notesTokeep)
@@ -42,11 +48,11 @@ const removeNote = function(title){
     
 }
 
-const saveNotes = function(notes) {
+const saveNotes = (notes) => {
     const dataJSON = JSON.stringify(notes)
     fs.writeFileSync('notes.json',dataJSON)
 }
-const loadNotes = function() {
+const loadNotes = () => {
     try{
         const dataBuffer = fs.readFileSync('notes.json')
         const dataJSON = dataBuffer.toString()
