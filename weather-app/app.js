@@ -1,17 +1,8 @@
-setTimeout(() => {
-    console.log('0 second timer')
-}, 0)
+const request = require('request')
 
-console.log('Starting')
+const url = 'https://api.darksky.net/forecast/c5954773866ad3d64f24143daa1cd217/37.8267,-122.4233?lang=ko'
 
-setTimeout( () => {
-    console.log('2 second timer')
-},2000 )
-//setTimeout = run some code after 
-//a specifi amount of time
-
-
-
-console.log('Stopping')
-
-// 결과 : starting -> stopping -> 0 -> 2
+request({ url:url, json:true },(error,response) => {
+    //console.log(response.body.currently)
+    console.log(response.body.daily.data[0].summary + "It is currently "+ response.body.currently.temperature + ' degress out. There is a '+ response.body.currently.precipProbability + '% chance of rain')
+})
