@@ -15,6 +15,13 @@ const addNote = (title, body) => {
     const duplicateNotes = notes.filter((note) => note.title === title)
     const duplicateNote = notes.find((note) => note.title === title)
 
+    // console.log(duplicateNote) //중복인지 아닌지 알아볼때 ?? debugging
+    // console.log(title)
+
+    debugger 
+    //실행방법 : node --inspect-brk ~~ 쓴다. 
+    //chrome://inspect/#devices 여기서 확인 가능. 
+
     if ( !duplicateNote){
         //empty일 경우 생성
         notes.push({
@@ -23,9 +30,9 @@ const addNote = (title, body) => {
         })
         //console.log(notes)
         saveNotes(notes)
-        console.log('New note added!')
+        console.log(chalk.green.inverse('New note added!'))
     } else{
-        console.log('Notes title taken!')
+        console.log(chalk.red.inverse('Notes title taken!'))
     }
     
 }
@@ -70,7 +77,7 @@ const readNote = (title) => {
 
 const saveNotes = (notes) => {
     const dataJSON = JSON.stringify(notes)
-    fs.writeFileSync('notes.json',dataJSON)
+    fs.writeFileSync('notes.json',dataJSON) 
 }
 const loadNotes = () => {
     try{
